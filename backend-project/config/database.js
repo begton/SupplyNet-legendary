@@ -12,4 +12,17 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+// Quick startup check: try a simple query and log status
+async function testConnection() {
+    try {
+        await pool.query('SELECT 1');
+        console.log('Database connection successful');
+    } catch (err) {
+        console.error('Database connection failed:', err.message);
+    }
+}
+
+// Run the check immediately (doesn't prevent module export)
+testConnection();
+
 module.exports = pool;
